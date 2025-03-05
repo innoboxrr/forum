@@ -8,9 +8,9 @@ class CreateForumPostTable extends Migration
     public function up()
     {
         Schema::create('forum_post', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('forum_discussion_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->id('id');
+            $table->foreignId('forum_discussion_id');
+            $table->foreignId('user_id');
             $table->text('body');
             $table->timestamps();
         });

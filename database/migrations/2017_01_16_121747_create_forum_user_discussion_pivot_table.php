@@ -13,10 +13,10 @@ class CreateForumUserDiscussionPivotTable extends Migration
     public function up()
     {
         Schema::create('forum_user_discussion', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('discussion_id')->unsigned()->index();
-            $table->foreign('discussion_id')->references('id')->on('forum_discussion')->onDelete('cascade');
+            $table->foreignId('user_id')->index();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('discussion_id')->index();
+            $table->foreignId('discussion_id')->references('id')->on('forum_discussion')->onDelete('cascade');
             $table->primary(['user_id', 'discussion_id']);
         });
     }
