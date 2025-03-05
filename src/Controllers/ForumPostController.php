@@ -8,7 +8,6 @@ use Innoboxrr\Forum\Events\ForumAfterNewResponse;
 use Innoboxrr\Forum\Events\ForumBeforeNewResponse;
 use Innoboxrr\Forum\Mail\ForumDiscussionUpdated;
 use Innoboxrr\Forum\Models\Models;
-use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
 use Illuminate\Support\Facades\Mail;
@@ -56,7 +55,7 @@ class ForumPostController extends Controller
 			'body.min' => trans('forum::alert.danger.reason.content_min'),
 		]);
 
-        Event::fire(new ForumBeforeNewResponse($request, $validator));
+        event(new ForumBeforeNewResponse($request, $validator));
         if (function_exists('forum_before_new_response')) {
             forum_before_new_response($request, $validator);
         }
@@ -98,7 +97,7 @@ class ForumPostController extends Controller
             $discussion->last_reply_at = $discussion->freshTimestamp();
             $discussion->save();
             
-            Event::fire(new ForumAfterNewResponse($request, $new_post));
+            event(new ForumAfterNewResponse($request, $new_post));
             if (function_exists('forum_after_new_response')) {
                 forum_after_new_response($request);
             }

@@ -7,10 +7,10 @@ use Carbon\Carbon;
 use Innoboxrr\Forum\Events\ForumAfterNewDiscussion;
 use Innoboxrr\Forum\Events\ForumBeforeNewDiscussion;
 use Innoboxrr\Forum\Models\Models;
-use Event;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as Controller;
 use Validator;
+use Illuminate\Support\Str;
 
 class ForumDiscussionController extends Controller
 {
@@ -77,7 +77,7 @@ class ForumDiscussionController extends Controller
 		]);
         
 
-        Event::fire(new ForumBeforeNewDiscussion($request, $validator));
+        event(new ForumBeforeNewDiscussion($request, $validator));
         if (function_exists('forum_before_new_discussion')) {
             forum_before_new_discussion($request, $validator);
         }
@@ -103,7 +103,7 @@ class ForumDiscussionController extends Controller
         }
 
         // *** Let's gaurantee that we always have a generic slug *** //
-        $slug = str_slug($request->title, '-');
+        $slug = Str::slug($request->title, '-');
 
         $discussion_exists = Models::discussion()->where('slug', '=', $slug)->withTrashed()->first();
         $incrementer = 1;
@@ -149,7 +149,7 @@ class ForumDiscussionController extends Controller
         $post = Models::post()->create($new_post);
 
         if ($post->id) {
-            Event::fire(new ForumAfterNewDiscussion($request, $discussion, $post));
+            event(new ForumAfterNewDiscussion($request, $discussion, $post));
             if (function_exists('forum_after_new_discussion')) {
                 forum_after_new_discussion($request);
             }

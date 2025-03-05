@@ -27,7 +27,7 @@ class ForumServiceProvider extends ServiceProvider
         ], 'forum_migrations');
 
         $this->publishes([
-            __DIR__.'/../database/seeds/' => database_path('seeds'),
+            __DIR__.'/../database/seeders/' => database_path('seeds'),
         ], 'forum_seeds');
 
         $this->publishes([

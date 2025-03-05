@@ -13,7 +13,7 @@ return [
     'discussion' => [
         'new'          => 'Nueva '.mb_strtolower(trans('forum::intro.titles.discussion')),
         'all'          => 'Todas las '.mb_strtolower(trans('forum::intro.titles.discussions')),
-        'create'       => 'Crear una '.mb_strtolower(trans('forum::intro.titles.discussion')),
+        'create'       => 'Crear',
         'posted_by'    => 'Publicado por',
         'head_details' => 'Publicado en categoria',
 
