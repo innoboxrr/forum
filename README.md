@@ -1,214 +1,162 @@
-<p align="center"><img width="300" src="https://raw.githubusercontent.com/theinnoboxrr/forum/master/public/assets/images/logo.png"></p>
+Aquí tienes el README reescrito sin enlaces externos, manteniendo el branding y la estructura profesional de **Innobox R&R**.
 
-<p align="center">
-<a href="https://travis-ci.org/theinnoboxrr/forum"><img src="https://travis-ci.org/theinnoboxrr/forum.svg?branch=master" alt="Build Status"></a>
-<a href="https://styleci.io/repos/64518333/shield?style=flat"><img src="https://styleci.io/repos/64518333/shield?style=flat" alt="Build Status"></a>
-<a href="https://packagist.org/packages/innoboxrr/forum"><img src="https://poser.pugx.org/innoboxrr/forum/downloads.svg?format=flat" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/innoboxrr/forum"><img src="https://poser.pugx.org/innoboxrr/forum/v/stable.svg?format=flat" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/tcg/voyager"><img src="https://poser.pugx.org/innoboxrr/forum/license.svg?format=flat" alt="License"></a>
-</p>
+---
 
-# Laravel Forum Package - Forum
+# 🗂️ **Innobox Forum - Laravel Forum Package**  
+🚀 Un paquete poderoso y flexible para agregar foros a tus aplicaciones Laravel.
 
-### Installation
+<p align="center"><img width="300" src="public/assets/images/logo.png"></p>
 
-Quick Note: If this is a new project, make sure to install the default user authentication provided with Laravel. `php artisan make:auth`
+---
 
-1. Include the package in your project
+## 📌 **Instalación**
 
-    ```
-    composer require "innoboxrr/forum=0.2.*"
-    ```
+> ⚠️ **Nota:** Si este es un nuevo proyecto, asegúrate de instalar la autenticación de usuario predeterminada de Laravel ejecutando:  
+> `php artisan make:auth`
 
-2. Add the service provider to your `config/app.php` providers array:
-
-   **If you're installing on Laravel 5.5+ skip this step**
-
-    ```
-    Innoboxrr\Forum\ForumServiceProvider::class,
-    ```
-
-3. Publish the Vendor Assets files by running:
-
-    ```
-    php artisan vendor:publish --provider="Innoboxrr\Forum\ForumServiceProvider"
-    ```
-
-4. Now that we have published a few new files to our application we need to reload them with the following command:
-
-    ```
-    composer dump-autoload
-    ```
-
-5. Run Your migrations:
-
-    ```
-    php artisan migrate
-    ```
-
-    Quick tip: Make sure that you've created a database and added your database credentials in your `.env` file.
-
-6. Lastly, run the seed files to seed your database with a little data:
-
-    ```
-    php artisan db:seed --class=ForumTableSeeder
-    ```
-
-7. Inside of your master.blade.php file include a header and footer yield. Inside the head of your master or app.blade.php add the following:
-
-    ```
-    @yield('css')
-    ```
-
-    Then, right above the `</body>` tag of your master file add the following:
-
-    ```
-    @yield('js')
-    ```
-
-Now, visit your site.com/forums and you should see your new forum in front of you!
-
-### Upgrading
-
-Make sure that your composer.json file is requiring the latest version of forum:
-
+1️⃣ **Instalar el paquete en tu proyecto**  
+```bash
+composer require "innoboxrr/forum=0.2.*"
 ```
+
+2️⃣ **Registrar el Service Provider** *(Solo necesario en Laravel < 5.5)*
+```php
+Innoboxrr\Forum\ForumServiceProvider::class,
+```
+
+3️⃣ **Publicar los archivos de configuración y assets**  
+```bash
+php artisan vendor:publish --provider="Innoboxrr\Forum\ForumServiceProvider"
+```
+
+4️⃣ **Actualizar el autoload de Composer**  
+```bash
+composer dump-autoload
+```
+
+5️⃣ **Ejecutar las migraciones**  
+```bash
+php artisan migrate
+```
+
+6️⃣ **Cargar datos iniciales en la base de datos**  
+```bash
+php artisan db:seed --class=ForumTableSeeder
+```
+
+7️⃣ **Incluir CSS y JS en tu plantilla principal**  
+Dentro de `master.blade.php` o `app.blade.php` añade lo siguiente:  
+
+👉 **En el `<head>`**  
+```blade
+@yield('css')
+```
+
+👉 **Antes del `</body>`**  
+```blade
+@yield('js')
+```
+
+🔹 Ahora, visita `tusitio.com/forums` y ¡listo! 🎉
+
+---
+
+## 🔄 **Actualización del paquete**
+1️⃣ Asegúrate de usar la última versión en `composer.json`:  
+```json
 "innoboxrr/forum": "0.2.*"
 ```
 
-Then you'll run:
-
-```
+2️⃣ Ejecuta la actualización:  
+```bash
 composer update
 ```
 
-Next, you may want to re-publish the forum assets, forum config, and the forum migrations by running the following:
-
-```
+3️⃣ Publica nuevamente los assets y configuración:  
+```bash
 php artisan vendor:publish --tag=forum_assets --force
 php artisan vendor:publish --tag=forum_config --force
 php artisan vendor:publish --tag=forum_migrations --force
 ```
 
-Next to make sure you have the latest database schema run:
-
-```
+4️⃣ Asegura que la base de datos esté actualizada:  
+```bash
 php artisan migrate
 ```
 
-And you'll be up-to-date with the latest version :)
+✅ ¡Tu foro ahora está actualizado!
 
-### Markdown editor
+---
 
-If you are going to make use of the markdown editor instead of tinymce you will need to change that in your config/forum.php:
+## ✍️ **Edición de contenido**
+Innobox Forum admite varios editores de texto para los mensajes.
 
-```
-'editor' => 'simplemde',
-```
+📌 **Markdown (SimpleMDE)**
+1. Cambia la configuración en `config/forum.php`:
+   ```php
+   'editor' => 'simplemde',
+   ```
+2. Instala la librería de soporte para Markdown:
+   ```bash
+   composer require graham-campbell/markdown
+   ```
 
-In order to properly display the posts you will need to include the  `graham-campbell/markdown` library for Laravel:
+📌 **Trumbowyg**
+1. Configura en `config/forum.php`:
+   ```php
+   'editor' => 'trumbowyg',
+   ```
+2. Asegúrate de incluir **jQuery >= 1.8**.
 
-```
-composer require graham-campbell/markdown
-```
+---
 
-### Trumbowyg editor
+## ⚙️ **Configuración avanzada**
+Al publicar los assets, se generará el archivo `config/forum.php`, donde puedes personalizar la configuración del foro según tus necesidades.
 
-If you are going to use Trumbowyg as your editor of choice you will need to change that in your config/forum.php:
+### 🔹 **Personalización de estilos**
+Si deseas agregar estilos personalizados, puedes incluir tu propio CSS después del `@yield('css')` en tu plantilla:
 
-```
-'editor' => 'trumbowyg',
-```
-
-Trumbowyg requires jQuery >= 1.8 to be included.
-
-### VIDEOS
-
-[Introduction and Installation of Forum](https://innoboxrr.com/episode/create-a-laravel-forum)
-
-### Configuration
-
-When you published the vendor assets you added a new file inside of your `config` folder which is called `config/forum.php`. This file contains a bunch of configuration you can use to configure your forums
-
-### Customization
-
-*CUSTOM CSS*
-
-If you want to add additional style changes you can simply add another stylesheet at the end of your `@yield('css')` statement in the head of your master file. In order to only load this file when a user is accessing your forums you can include your stylesheet in the following `if` statement:
-
-```
-@if(Request::is( Config::get('forum.routes.home') ) || Request::is( Config::get('forum.routes.home') . '/*' ))
-    <!-- LINK TO YOUR CUSTOM STYLESHEET -->
-    <link rel="stylesheet" href="/assets/css/forums.css" />
+```blade
+@if(Request::is(Config::get('forum.routes.home')) || Request::is(Config::get('forum.routes.home') . '/*'))
+    <link rel="stylesheet" href="/assets/css/forums.css">
 @endif
 ```
 
-*SEO FRIENDLY PAGE TITLES*
+### 🔹 **SEO: Títulos amigables**
+Para mejorar el SEO de tu foro, agrega esto en el `<head>` de tu plantilla:
 
-Since the forum uses your master layout file, you will need to include the necessary code in order to display an SEO friendly title for your page. The following code will need to be added to the `<head>` of your master file:
-
-```
-@if( Request::is( Config::get('forum.routes.home')) )
-    <title>Title for your forum homepage -  Website Name</title>
-@elseif( Request::is( Config::get('forum.routes.home') . '/' . Config::get('forum.routes.category') . '/*' ) && isset( $discussion ) )
-    <title>{{ $discussion->category->name }} - Website Name</title>
-@elseif( Request::is( Config::get('forum.routes.home') . '/*' ) && isset($discussion->title))
-    <title>{{ $discussion->title }} - Website Name</title>
+```blade
+@if(Request::is(Config::get('forum.routes.home')))
+    <title>Foro - Nombre de tu Sitio</title>
+@elseif(Request::is(Config::get('forum.routes.home') . '/' . Config::get('forum.routes.category') . '/*') && isset($discussion))
+    <title>{{ $discussion->category->name }} - Nombre de tu Sitio</title>
+@elseif(Request::is(Config::get('forum.routes.home') . '/*') && isset($discussion->title))
+    <title>{{ $discussion->title }} - Nombre de tu Sitio</title>
 @endif
 ```
 
-*OVERRIDING VIEWS*
+### 🔹 **Personalización de vistas**
+Para modificar las vistas del foro, crea una carpeta en `resources/views/vendor/forum` y copia allí los archivos de vista que desees personalizar:
 
-In order to override Forum's built in views, simply create a `forum` folder in your `vendor` views folder, i.e. `ROOT/resources/views/vendor/forum`. Then simply drop in the Forum view files you would like to override.
-
-- [home.blade.php](https://github.com/theinnoboxrr/forum/blob/master/src/Views/home.blade.php)
-- [discussion.blade.php](https://github.com/theinnoboxrr/forum/blob/master/src/Views/discussion.blade.php)
-
-### Custom Function Hooks for the forum
-
-Sometimes you may want to add some additional functionality when a user creates a new discussion or adds a new response. Well, there are a few built in functions that you can create in your script to access this functionality:
-
-*Before User Adds New Discussion*
-Create a new global function in your script called:
 ```
-function forum_before_new_discussion($request, $validator){}
+resources/views/vendor/forum/home.blade.php
+resources/views/vendor/forum/discussion.blade.php
 ```
 
-Note: that the `$request` object is passed with the user input for each webhook. You can use it if you would like :) If not, no worries just add your custom functionality.
+---
 
-*After User Adds New Discussion*
-Create a new global function in your script called:
-```
-function forum_after_new_discussion($request){}
-```
+## 🔔 **Eventos y Hooks**
+Innobox Forum proporciona eventos para personalizar el comportamiento del foro.
 
-*Before User Adds New Response*
-Create a new global function in your script called:
-```
-function forum_before_new_response($request, $validator){}
-```
+### **Eventos disponibles**
+| Evento | Propiedades | Descripción |
+|--------|------------|-------------|
+| `ForumBeforeNewDiscussion` | `$request, $validator` | Antes de validar y crear una discusión |
+| `ForumAfterNewDiscussion` | `$request, $discussion, $post` | Después de crear una discusión |
+| `ForumBeforeNewResponse` | `$request, $validator` | Antes de validar y crear una respuesta |
+| `ForumAfterNewResponse` | `$request, $post` | Después de crear una respuesta |
 
-*After User Adds New Response*
-Create a new global function in your script called:
-```
-function forum_after_new_response($request){}
-```
-
-### Laravel [Events](https://laravel.com/docs/events) for the forum
-
-This package provides a number of events allowing you to respond to user actions as they happen:
-
-| Event        | Available properties           | Description  |
-| ------------- |:-------------:| -----:|
-| `ForumBeforeNewDiscussion`      | `Illuminate\Http\Request ($request)`, `Illuminate\Validation\Validator ($validator)` | This event is fired *before* a discussion is validated and created |
-| `ForumAfterNewDiscussion`      | `Illuminate\Http\Request ($request)`, `Models::discussion() ($discussion)`, `Models::post() ($post)` | This event is fired *after* a discussion has been validated and created |
-| `ForumBeforeNewResponse`      | `Illuminate\Http\Request ($request)`, `Illuminate\Validation\Validator ($validator)` | This event is fired *before* a response is validated and created |
-| `ForumAfterNewResponse`      | `Illuminate\Http\Request ($request)`, `Models::post() ($post)` | This event is fired *after* a response is validated and created |
-
-#### Listening for Events
-To register your listeners for these events, follow the [Laravel documentation for registering events and listeners](https://laravel.com/docs/events#registering-events-and-listeners).
-For example, to register a listener for the "before new discussion" event, add the following to your `EventServiceProvider`:
-
+### **Ejemplo de uso en `EventServiceProvider.php`**
 ```php
 protected $listen = [
     'Innoboxrr\Forum\Events\ForumBeforeNewDiscussion' => [
@@ -217,24 +165,31 @@ protected $listen = [
 ];
 ```
 
-where `App\Listeners\HandleNewDiscussion` is a class in your application which handles the event when it's fired.
+En el listener, puedes acceder a los datos del evento:
 
-You can access the object that triggered the event in your listener with
 ```php
-    public function handle(ForumAfterNewDiscussion $event)
-    {
-        // $event->discussion
-        // $event->post
-    }
-```
-and 
-```php
-    public function handle(ForumAfterNewResponse $event)
-    {
-        // $event->post
-    }
+public function handle(ForumAfterNewDiscussion $event)
+{
+    // Acceder a la discusión
+    $event->discussion;
+    
+    // Acceder al post
+    $event->post;
+}
 ```
 
-### Screenshots
+---
 
-![](https://raw.githubusercontent.com/theinnoboxrr/forum/master/public/assets/images/forum-screenshot.jpg)
+## 📸 **Captura de pantalla**
+<p align="center">
+    <img src="public/assets/images/forum-screenshot.jpg" width="800">
+</p>
+
+---
+
+## 🏆 **Contribuye al proyecto**
+Si deseas colaborar en el desarrollo de Innobox Forum, cualquier contribución es bienvenida. Revisa el código, reporta errores o sugiere mejoras.
+
+---
+
+🚀 **Innobox Forum** es un paquete diseñado para llevar la funcionalidad de foros a tu aplicación Laravel de manera rápida y eficiente. ¡Disfrútalo! 🎉
