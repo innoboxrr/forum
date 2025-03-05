@@ -5,8 +5,6 @@ Aquí tienes el README reescrito sin enlaces externos, manteniendo el branding y
 # 🗂️ **Innobox Forum - Laravel Forum Package**  
 🚀 Un paquete poderoso y flexible para agregar foros a tus aplicaciones Laravel.
 
-<p align="center"><img width="300" src="public/assets/images/logo.png"></p>
-
 ---
 
 ## 📌 **Instalación**
@@ -177,13 +175,6 @@ public function handle(ForumAfterNewDiscussion $event)
     $event->post;
 }
 ```
-
----
-
-## 📸 **Captura de pantalla**
-<p align="center">
-    <img src="public/assets/images/forum-screenshot.jpg" width="800">
-</p>
 
 ---
 
