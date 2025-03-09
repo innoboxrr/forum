@@ -216,7 +216,9 @@
 					<!-- Editor -->
 					<div id="editor" class="mb-4">
 						@if($forum_editor == 'tinymce' || empty($forum_editor))
-							
+							<label id="tinymce_placeholder" class="block text-gray-500 mb-2">
+								@lang('forum::messages.editor.tinymce_placeholder')
+							</label>
 							<textarea id="body"
 								class="richText border border-gray-300 rounded px-3 py-2 w-full"
 								name="body"
