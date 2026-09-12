@@ -1,25 +1,40 @@
 <?php
 
-abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
+namespace Innoboxrr\Forum\Tests;
+
+use Orchestra\Testbench\TestCase as Testbench;
+
+/**
+ * Una aplicacion Laravel con los proveedores que el paquete declara en su
+ * composer.json.
+ *
+ * Se leen del propio composer.json y no de una lista escrita aqui: lo que se
+ * prueba tiene que ser exactamente lo que recibe quien instala el paquete, y
+ * una segunda lista acabaria divergiendo de la primera.
+ */
+abstract class TestCase extends Testbench
 {
     /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
+     * @return array<int, class-string>
      */
-    protected $baseUrl = 'http://localhost';
+    protected function getPackageProviders($app): array
+    {
+        return self::declaredProviders();
+    }
 
     /**
-     * Creates the application.
-     *
-     * @return \Illuminate\Foundation\Application
+     * @return array<int, class-string>
      */
-    public function createApplication()
+    public static function declaredProviders(): array
     {
-        $app = require __DIR__.'/../../../bootstrap/app.php';
+        return self::composer()['extra']['laravel']['providers'] ?? [];
+    }
 
-        $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-
-        return $app;
+    /**
+     * @return array<string, mixed>
+     */
+    public static function composer(): array
+    {
+        return json_decode((string) file_get_contents(dirname(__DIR__) . '/composer.json'), true);
     }
 }
