@@ -155,14 +155,11 @@ Route::group([
             'middleware' => $middleware('post.index'),
         ]);
 
-        // Create post view.
-        Route::get('create', [
-            'as'         => 'create',
-            'uses'       => 'ForumPostController@create',
-            'middleware' => $authMiddleware('post.create'),
-        ]);
-
         // Store post action.
+        //
+        // No hay vista de alta, de detalle ni de edicion de un post: el
+        // controlador no tiene create(), show() ni edit(), y esas tres rutas
+        // devolvian un 500. Un post se crea, edita y borra desde la discusion.
         Route::post('/', [
             'as'         => 'store',
             'uses'       => 'ForumPostController@store',
@@ -175,20 +172,6 @@ Route::group([
         Route::group([
             'prefix' => '{post}',
         ], function () use ($middleware, $authMiddleware) {
-
-            // Single post view.
-            Route::get('/', [
-                'as'         => 'show',
-                'uses'       => 'ForumPostController@show',
-                'middleware' => $middleware('post.show'),
-            ]);
-
-            // Edit post view.
-            Route::get('edit', [
-                'as'         => 'edit',
-                'uses'       => 'ForumPostController@edit',
-                'middleware' => $authMiddleware('post.edit'),
-            ]);
 
             // Update post action.
             Route::match(['PUT', 'PATCH'], '/', [
