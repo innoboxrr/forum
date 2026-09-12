@@ -1,0 +1,13 @@
+
+# El repositorio es LF, tambien en un checkout de Windows.
+#
+# Sin esto, autocrlf convertia los archivos a CRLF al clonar en Windows y
+# cualquier diff contra otra copia del paquete salia como si el archivo entero
+# hubiera cambiado, ocultando las diferencias reales.
+* text=auto eol=lf
+
+# Binarios, sin tocar.
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
